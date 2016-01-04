@@ -1,0 +1,144 @@
+theonion.com
+div.content-text
+nationaljournal.com
+div.article-entry
+slate.com
+div.body
+theatlantic.com
+div.article-body
+citylab.com
+div#article-body
+defenseone.com
+article .text p
+hrw.org
+.article-body
+hechingerreport.org
+div.article-body
+cbsnews.com
+div#article-entry
+cato.org
+div.article-body
+aei.org
+div.content
+realclearmarkets.com
+div#article_body
+vox.com
+div#article-body
+thenewrepublic.com
+div.story div.body
+motherjones.com
+div#node-body-top
+newyorker.com
+div[itemprop="articleBody"]
+salon.com
+div.articleContent
+bloomberg.com
+div.article-body__content
+breitbart.com
+div.entry-content
+dailykos.com
+div.article-body
+theintercept.com
+div.PostContent
+ibtimes.com
+div[itemprop="articleBody"]
+aeon.co
+div.body
+theonion.com
+div.content-text
+cfr.org
+article
+vice.com
+div.article-content
+npr.org
+div#storytext
+wired.com
+article
+theverge.com
+div.m-article_entry
+forbes.com
+div.article-text
+pewresearch.org
+div#content
+thehill.com
+div.field-item ul, div.field-item ol, div.field-item p
+washingtonpost.com
+article[itemprop="articleBody"]
+reuters.com
+span#articleText
+nytimes.com
+p[itemprop="articleBody"]
+huffingtonpost.com
+div#mainentrycontent p, div#mainentrycontent ul, div#mainentrycontent ol
+cnn.com
+p.zn-body__paragraph
+foxnews.com
+div[itemprop="articleBody"]
+nbcnews.com
+div[itemprop="articleBody"] p, div[itemprop="articleBody"] ul, div[itemprop="articleBody"] ol
+theguardian.com
+div[itemprop="articleBody"] p, div[itemprop="articleBody"] ul, div[itemprop="articleBody"] ol
+abcnews.go.com
+p[itemprop="articleBody"]
+abcnews.com
+p[itemprop="articleBody"]
+bbc.com
+div[property="articleBody"] p
+bbc.co.uk
+div[property="articleBody"] p
+usatoday.com
+div[itemprop="articleBody"] p, div[itemprop="articleBody"] ul, div[itemprop="articleBody"] ol
+latimes.com
+article p, article ul, article ol
+america.aljazeera.com
+div.text.section p, div.text.section ul, div.text.section ol
+aljazeera.com
+div#article-body p, div#article-body ul, div#article-body ol
+heritage.org
+div.content, div.large-12.columns p, div.large-12.columns ul, div.large-12.columns ol
+dailysignal.com
+div.tds-content
+brookings.edu
+div[itemprop="articleBody"] p, div[itemprop="articleBody"] ol, div[itemprop="articleBody"] ul
+aclu.org
+div.description p, div.description ul, div.description ol
+stltoday.com
+div.entry-content p, div.entry-content ul, div.entry-content ol
+usnews.com
+article#content div.block p, article#content div.block ul, article#content div.block ol
+politico.com
+div.story-text p, div.story-text ul, div.story-text ol
+washingtontimes.com
+div.article-text p, div.article-text ul, div.article-text ol
+nydailynews.com
+article[itemprop="articleBody"] p, article[itemprop="articleBody"] ul, article[itemprop="articleBody"] ol
+nypost.com
+div.article div.entry-content p, div.article div.entry-content ul, div.article div.entry-content ol
+chicagotribune.com
+article section.trb_mainContent div.trb_article_page p, article section.trb_mainContent div.trb_article_page ul, article section.trb_mainContent div.trb_article_page ol
+chron.com
+div.article-body p, div.article-body ul, div.article-body ol
+foreignpolicy.com
+div.post-inner p, div.post-inner ul, div.post-inner ol
+bloombergview.com
+div[itemprop="articleBody"] p, div[itemprop="articleBody"] ul, div[itemprop="articleBody"] ol
+theweek.com
+div.article-body p, div.article-body ul, div.article-body ol
+lawfareblog.com
+div.field-items p, div.field-items ul, div.field-items ol
+time.com
+article section.article-body p, article section.article-body ul, article section.article-body ol
+crisisgroup.org
+div#contentBody p, div#contentBody ul, div#contentBody ol
+realclearpolitics.com
+div#article_body p, div#article_body ul, div#article_body ol
+csmonitor.com
+article#story div#story-body p, article#story div#story-body ul, article#story div#story-body ol
+washingtonexaminer.com
+span[itemprop="articleBody"] p, span[itemprop="articleBody"] ul, span[itemprop="articleBody"] ol
+thediplomat.com
+article div.postBody p, article div.postBody ul, article div.postBody ol
+rt.com
+div.cont-wp p, div.cont-wp ul, div.cont-wp ol
+cnbc.com
+div#article_body p, div#article_body ul, div#article_body ol
