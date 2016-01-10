@@ -13,7 +13,19 @@ import java.io.*;
 public class FeedReader {
     Scanner reader;
     public FeedReader(String pathToFeeds) throws IOException{
-        reader = new Scanner(new File(pathToFeeds));
+//        if (inJar) {
+//        byte[] buffer = new byte[input.available()];
+//        for (int i = 0; i != -1; i = input.read(buffer)) {
+//            System.out.write(buffer, 0, i);
+//        }
+//        reader = new Scanner(new File(pathToFeeds));
+        try {
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream(pathToFeeds);
+            reader = new Scanner(input);
+        } catch (NullPointerException e) {
+//        } else
+            reader = new Scanner(new File(pathToFeeds));
+        }
     }
 
     public boolean hasNext(){

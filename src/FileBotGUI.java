@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.*;
 import javafx.scene.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.event.*;
@@ -87,23 +88,10 @@ public class FileBotGUI extends Application {
 
         grid2.add(new Label("Feeds File:"), 0, 0);
         TextField feeds = new JFXTextField();
-        feeds.setText(currentDir + "feeds.in");
+        feeds.setText("feeds.in");
         feeds.setMinWidth(300);
         grid2.add(feeds, 1, 0, 2, 1);
         Button chooseFeedsFile = new JFXButton("Open File Picker");
-        chooseFeedsFile.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FileChooser fileChooser = new FileChooser();
-                File selectedFile =
-                        fileChooser.showOpenDialog(primaryStage);
-
-                if (selectedFile == null) {
-                } else {
-                    feeds.setText(selectedFile.getAbsolutePath());
-                }
-            }
-        });
         chooseFeedsFile.getStyleClass().add("button-raised");
         grid2.add(chooseFeedsFile, 1, 1);
 
@@ -128,7 +116,7 @@ public class FileBotGUI extends Application {
                     default:
                         System.err.println("Unexpected userData");
                 }
-                feeds.setText(currentDir + text);
+                feeds.setText(text);
             }
         });
         RadioButton rb1 = new JFXRadioButton();
@@ -147,10 +135,40 @@ public class FileBotGUI extends Application {
         rb3.setUserData("BN");
         grid1.add(rb3, 2, 4);
         grid1.add(new Label("Bing News Feeds"), 1, 4);
+        chooseFeedsFile.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FileChooser fileChooser = new FileChooser();
+                File selectedFile =
+                        fileChooser.showOpenDialog(primaryStage);
+
+                if (selectedFile == null) {
+                } else {
+                    feeds.setText(selectedFile.getAbsolutePath());
+                    rb1.setSelected(false);
+                    rb2.setSelected(false);
+                    rb3.setSelected(false);
+                }
+            }
+        });
+        feeds.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                rb1.setSelected(false);
+                rb2.setSelected(false);
+                rb3.setSelected(false);
+                if (feeds.getText().equals("feeds.in"))
+                    rb1.setSelected(true);
+                else if (feeds.getText().equals("gn_searches.in"))
+                    rb2.setSelected(true);
+                else if (feeds.getText().equals("bing_searches.in"))
+                    rb3.setSelected(true);
+            }
+        });
 
         grid2.add(new Label("DOM Helper:"), 0, 2);
         TextField domHelper = new JFXTextField();
-        domHelper.setText(currentDir + "domHelper.in");
+        domHelper.setText("domHelper.in");
         domHelper.setMinWidth(300);
         grid2.add(domHelper, 1, 2);
         Button chooseDOMHelperFile = new JFXButton("Open File Picker");
@@ -212,8 +230,8 @@ public class FileBotGUI extends Application {
             public void handle(ActionEvent event) {
                 targetField.setText("C:/Extemp/files".replace("/", delimiter));
                 rb1.setSelected(true);
-                feeds.setText(currentDir + "feeds.in");
-                domHelper.setText(currentDir + "domHelper.in");
+                feeds.setText("feeds.in");
+                domHelper.setText("domHelper.in");
                 maxArticles.setText("1000000");
                 maxArticlesPerFeed.setText("100");
                 maxFeeds.setText("1000");
@@ -258,12 +276,14 @@ public class FileBotGUI extends Application {
                     ret = false;
                 }
                 String f = feeds.getText();
-                if (Files.notExists(Paths.get(f)) || !Files.isRegularFile(Paths.get(f))) {
+                if (f.equals("feeds.in") || f.equals("bing_searches.in") || f.equals("gn_searches.in")) {
+                } else if (Files.notExists(Paths.get(f)) || !Files.isRegularFile(Paths.get(f))) {
                     errors.add("Feeds File '" + f + "' is invalid.");
                     ret = false;
                 }
                 String dH = domHelper.getText();
-                if (Files.notExists(Paths.get(dH)) || !Files.isRegularFile(Paths.get(dH))) {
+                if (dH.equals("domHelper.in")) {
+                } else if (Files.notExists(Paths.get(dH)) || !Files.isRegularFile(Paths.get(dH))) {
                     errors.add("DOM Helper File '" + dH + "' is invalid.");
                     ret = false;
                 }

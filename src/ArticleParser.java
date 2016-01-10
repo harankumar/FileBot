@@ -10,7 +10,13 @@ public class ArticleParser {
     public ArticleParser(String domHelper) throws IOException {
         this.domHelper = new HashMap<String, String>();
 
-        Scanner reader = new Scanner(new File(domHelper));
+        Scanner reader;
+        try {
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream(domHelper);
+            reader = new Scanner(input);
+        } catch (NullPointerException e){
+            reader = new Scanner(new File(domHelper));
+        }
         while (reader.hasNext()){
             String url = reader.nextLine();
             String selector = reader.nextLine();
