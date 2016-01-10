@@ -31,7 +31,7 @@ public class FileBotGUI extends Application {
     }
 
     public static TextArea output;
-    public static Button run;
+    public static Button run, stop;
     public static Label runLabel;
     public static PrintStream out = new PrintStream(new OutputStream() {
         @Override
@@ -217,10 +217,10 @@ public class FileBotGUI extends Application {
         h1.getChildren().add(scramble);
         f1.getChildren().add(h1);
         HBox h2 = new HBox();
-        h2.getChildren().add(new Label("Loop:"));
-        CheckBox loop = new JFXCheckBox();
-        loop.setSelected(true);
-        h2.getChildren().add(loop);
+        h2.getChildren().add(new Label("Alphabetize:"));
+        CheckBox alphabetize = new JFXCheckBox();
+        alphabetize.setSelected(true);
+        h2.getChildren().add(alphabetize);
         f1.getChildren().add(h2);
         grid2.add(f1, 0, 7, 3, 1);
 
@@ -238,7 +238,7 @@ public class FileBotGUI extends Application {
                 maxArticlesPerFeed.setText("100");
                 maxFeeds.setText("1000");
                 scramble.setSelected(true);
-                loop.setSelected(true);
+                alphabetize.setSelected(true);
             }
         });
         HBox h3 = new HBox(10);
@@ -251,11 +251,16 @@ public class FileBotGUI extends Application {
         grid3.setHgap(10);
         grid3.setVgap(10);
 
-        run = new Button("Run FileBot");
+        run = new JFXButton("Run FileBot");
+        run.getStyleClass().add("button-raised");
         run.setStyle("-fx-background-color: #8BC34A;");
+        stop = new JFXButton("Stop FileBot");
+        stop.getStyleClass().add("button-raised");
+        stop.setStyle("-fx-background-color: #F44336;");
+        stop.setDisable(true);
         runLabel = new Label();
         HBox h4 = new HBox(10);
-        h4.getChildren().addAll(run, runLabel);
+        h4.getChildren().addAll(run, stop, runLabel);
         grid3.add(h4, 0, 0);
 
         output = new TextArea();
@@ -328,8 +333,7 @@ public class FileBotGUI extends Application {
                         int mAPF = Integer.parseInt(maxArticlesPerFeed.getText());
                         int mF = Integer.parseInt(maxFeeds.getText());
                         Boolean s = scramble.isSelected();
-//                        TODO: fix this!
-                        Boolean l = scramble.isSelected();
+                        Boolean l = alphabetize.isSelected();
 
                         fb = new FileBotRunner(t, f, dH, mA, mAPF, mF, s, l, new FileBotRunner.CompletionListener() {
                             @Override
@@ -344,6 +348,13 @@ public class FileBotGUI extends Application {
                     }
                 });
                 a.start();
+            }
+        });
+        stop.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (fb != null)
+                    fb.stop();
             }
         });
 
@@ -381,8 +392,8 @@ public class FileBotGUI extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-//                TODO: make it a stop running button
                 run.setDisable(x);
+                stop.setDisable(!x);
                 runLabel.setText(x ? "Filer running." : "Operation completed.");
             }
         });
