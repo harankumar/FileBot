@@ -36,10 +36,12 @@ public class FileBotGUI extends Application {
     public static PrintStream out = new PrintStream(new OutputStream() {
         @Override
         public void write(int b) throws IOException {
+//           TODO: Fix Formatting here
             Platform.runLater(() -> output.appendText(String.valueOf((char) b)));
         }
     }, true);
 
+    FileBotRunner fb;
     public static Boolean isRunning = false;
 
     @Override
@@ -326,24 +328,17 @@ public class FileBotGUI extends Application {
                         int mAPF = Integer.parseInt(maxArticlesPerFeed.getText());
                         int mF = Integer.parseInt(maxFeeds.getText());
                         Boolean s = scramble.isSelected();
+//                        TODO: fix this!
                         Boolean l = scramble.isSelected();
-                        try {
-//                          TODO: safe way to kill this
-                            running(true);
-                            FileBot.runFiler(t, f, dH, mA, mAPF, mF, s, l);
-                        } catch (IOException i) {
-                            System.out.println("IO Error, try again or report bug.");
-                            System.out.println(i.getMessage());
-                            System.out.println(Arrays.toString(i.getStackTrace()));
-                            System.out.println(i.getLocalizedMessage());
-                            System.out.println(i.getCause().getMessage());
-                        } catch (URISyntaxException u) {
-                            System.out.println("URI Error, try again or report bug.");
-                        } finally {
-                            running(false);
-                            System.out.println("Done Filing!");
-                            isRunning = false;
-                        }
+
+                        fb = new FileBotRunner(t, f, dH, mA, mAPF, mF, s, l, new FileBotRunner.CompletionListener() {
+                            @Override
+                            public void onComplete() {
+                                running(false);
+                            }
+                        });
+                        running(true);
+                        fb.run();
                     } else {
                         runLabel.setText("Error. Fix issues and rerun.");
                     }
@@ -372,12 +367,21 @@ public class FileBotGUI extends Application {
         primaryStage.setScene(scene);
 
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (fb != null)
+                    fb.stop();
+            }
+        });
     }
 
     public static void running(boolean x) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+//                TODO: make it a stop running button
                 run.setDisable(x);
                 runLabel.setText(x ? "Filer running." : "Operation completed.");
             }

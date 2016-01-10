@@ -120,43 +120,12 @@ public class FileBot {
      * See FileBot.file for more information.
      * */
     public static void runFiler(String target, String feeds, String domHelper, int maxArticles, int maxArticlesPerFeed, int maxFeeds, boolean scramble, boolean alphabetize) throws IOException, URISyntaxException {
-        try {
-            if (alphabetize)
-                FileTools.alphabetize(feeds);
-            if (scramble)
-                FileTools.scramble(feeds);
-        } catch (IOException e){
-            System.out.println("Unable to scramble or alphabetize due to IO Error.");
-        }
-        FeedReader feedReader = new FeedReader(feeds);
-        ArticleParser articleParser = new ArticleParser(domHelper);
-
-        int articlesFiled = 0, articlesFiledInFeed = 0, feedsFiled = 0;
-        while(feedReader.hasNext()){
-            Feed feed = feedReader.nextFeed();
-            if (feed == null)
-                continue;
-
-            while(feed.hasNext()){
-                Article article = feed.nextArticle();
-                if (!article.valid) {
-                    continue;
-                }
-                article = articleParser.parse(article);
-                article.file(target);
-
-                articlesFiled++;
-                articlesFiledInFeed++;
-                if (articlesFiled > maxArticles || articlesFiledInFeed > maxArticlesPerFeed)
-                    break;
+        FileBotRunner fb = new FileBotRunner(target, feeds, domHelper, maxArticles, maxArticlesPerFeed, maxFeeds, scramble, alphabetize, new FileBotRunner.CompletionListener() {
+            @Override
+            public void onComplete() {
             }
-
-            feedsFiled++;
-            if (feedsFiled > maxFeeds || articlesFiled > maxArticles)
-                break;
-            articlesFiledInFeed = 0;
-        }
-        System.out.println("Operation completed.");
+        });
+        fb.run();
     }
 
     /**
