@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class FileTools {
+//    TODO: use classpath
     public static void scramble(String feeds) throws IOException {
         scramble(new File(feeds));
     }

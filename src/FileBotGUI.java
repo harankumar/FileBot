@@ -331,13 +331,18 @@ public class FileBotGUI extends Application {
 //                          TODO: safe way to kill this
                             running(true);
                             FileBot.runFiler(t, f, dH, mA, mAPF, mF, s, l);
+                        } catch (IOException i) {
+                            System.out.println("IO Error, try again or report bug.");
+                            System.out.println(i.getMessage());
+                            System.out.println(Arrays.toString(i.getStackTrace()));
+                            System.out.println(i.getLocalizedMessage());
+                            System.out.println(i.getCause().getMessage());
+                        } catch (URISyntaxException u) {
+                            System.out.println("URI Error, try again or report bug.");
+                        } finally {
                             running(false);
                             System.out.println("Done Filing!");
                             isRunning = false;
-                        } catch (IOException i) {
-                            System.out.println("IO Error");
-                        } catch (URISyntaxException u) {
-                            System.out.println("URI Error");
                         }
                     } else {
                         runLabel.setText("Error. Fix issues and rerun.");

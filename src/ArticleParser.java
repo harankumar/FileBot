@@ -14,7 +14,8 @@ public class ArticleParser {
         try {
             InputStream input = this.getClass().getClassLoader().getResourceAsStream(domHelper);
             reader = new Scanner(input);
-        } catch (NullPointerException e){
+        } catch (Exception e){
+            System.out.println("Error");
             reader = new Scanner(new File(domHelper));
         }
         while (reader.hasNext()){

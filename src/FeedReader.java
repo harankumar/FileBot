@@ -22,7 +22,8 @@ public class FeedReader {
         try {
             InputStream input = this.getClass().getClassLoader().getResourceAsStream(pathToFeeds);
             reader = new Scanner(input);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            System.out.println("Error");
 //        } else
             reader = new Scanner(new File(pathToFeeds));
         }

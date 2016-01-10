@@ -120,10 +120,14 @@ public class FileBot {
      * See FileBot.file for more information.
      * */
     public static void runFiler(String target, String feeds, String domHelper, int maxArticles, int maxArticlesPerFeed, int maxFeeds, boolean scramble, boolean alphabetize) throws IOException, URISyntaxException {
-        if(alphabetize)
-            FileTools.alphabetize(feeds);
-        if(scramble)
-            FileTools.scramble(feeds);
+        try {
+            if (alphabetize)
+                FileTools.alphabetize(feeds);
+            if (scramble)
+                FileTools.scramble(feeds);
+        } catch (IOException e){
+            System.out.println("Unable to scramble or alphabetize due to IO Error.");
+        }
         FeedReader feedReader = new FeedReader(feeds);
         ArticleParser articleParser = new ArticleParser(domHelper);
 
