@@ -25,6 +25,16 @@ public class FileBotRunner implements Runnable {
         this.completionListener = completionListener;
     }
 
+    public static void yield() {
+        try {
+            Thread.yield();
+            Thread.sleep(50);
+            Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void run() {
         try {
             if (alphabetize)
@@ -45,7 +55,10 @@ public class FileBotRunner implements Runnable {
                 if (feed == null)
                     continue;
 
+                yield();
+
                 while (feed.hasNext() && running) {
+                    yield();
                     Article article = feed.nextArticle();
                     if (!article.valid) {
                         continue;
@@ -59,15 +72,19 @@ public class FileBotRunner implements Runnable {
                         break;
                 }
 
+                yield();
+
                 feedsFiled++;
                 if (feedsFiled > maxFeeds || articlesFiled > maxArticles)
                     break;
                 articlesFiledInFeed = 0;
             }
         } catch (IOException i) {
-            System.out.println("IO Exception, try again or report bug.");
+            System.err.println("IO Exception, try again or report bug.");
+            i.printStackTrace();
         } catch (URISyntaxException u) {
-            System.out.println("URI Exception, try again or report bug.");
+            System.err.println("URI Exception, try again or report bug.");
+            u.printStackTrace();
         } finally {
             running = false;
             System.out.println("Operation completed.");
@@ -78,6 +95,7 @@ public class FileBotRunner implements Runnable {
     public void stop() {
         System.err.println("Stopping...");
         running = false;
+        yield();
         completionListener.onComplete();
     }
 }

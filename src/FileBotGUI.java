@@ -64,6 +64,7 @@ public class FileBotGUI extends Application {
         TextField targetField = new JFXTextField();
         targetField.setText("C:/Extemp/files".replace("/", delimiter));
         targetField.setMinWidth(300);
+        Tooltip.install(targetField, new Tooltip("Choose the directory where files will be downloaded to."));
         grid1.add(targetField, 1, 0, 2, 1);
         Button chooseTargetDir = new JFXButton("Open Directory Picker");
         chooseTargetDir.getStyleClass().add("button-raised");
@@ -92,12 +93,15 @@ public class FileBotGUI extends Application {
         TextField feeds = new JFXTextField();
         feeds.setText("feeds.in");
         feeds.setMinWidth(300);
+        Tooltip.install(feeds, new Tooltip("Choose a file containing the a list of feeds to file."));
         grid2.add(feeds, 1, 0, 2, 1);
         Button chooseFeedsFile = new JFXButton("Open File Picker");
         chooseFeedsFile.getStyleClass().add("button-raised");
         grid2.add(chooseFeedsFile, 1, 1);
 
-        grid1.add(new Label("Feeds to file:"), 0, 2);
+        Label l1 = new Label("Feeds to file:");
+        Tooltip.install(l1, new Tooltip("Choose which sources to file from."));
+        grid1.add(l1, 0, 2);
         ToggleGroup feedChoices = new ToggleGroup();
         feedChoices.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
